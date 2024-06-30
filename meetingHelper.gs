@@ -229,27 +229,14 @@ function makeGroups(community, absentees, numGroups, outputSheet, lastIndex) {
   // メンバーをシャッフル
   presentMembers.sort(function() { return 0.5 - Math.random(); });
 
-  // グループを初期化
-  //var groups = Array.from({ length: numGroups }, () => []);
-
-  // メンバーを均等にグループに分ける
-  //var groupIndex = 0;
-  //presentMembers.forEach(function(member) {
-  //  groups[groupIndex].push(member);
-  //  groupIndex = (groupIndex + 1) % numGroups;
-  //});
-
   // 結果シートの最後の行を見つける
   var lastRow = outputSheet.getLastRow();
   var startRow = lastRow + 1;
 
   if (lastRow == 0) {
     // グループラベルを追加
-    //presentMembers.forEach(function(presentMembers, index) {
-    //  outputSheet.getRange(startRow, index + 1).setValue('Group ' + (index + 1));
-    //});
 
-    for(let index = 0; index < numGroups + 1; index++){
+    for(let index = 0; index < numGroups; index++){
 
       outputSheet.getRange(startRow, index + 1).setValue('Group ' + (index + 1));
     }
@@ -257,25 +244,29 @@ function makeGroups(community, absentees, numGroups, outputSheet, lastIndex) {
   }
 
   // グループを結果シートに追記
-  var col = lastIndex;
-  //if(col != 0){
-
-  //  startRow = lastRow;
-  //}
-
   console.log(presentMembers);
-  for (var i = 0; i <= presentMembers.length / (numGroups + 2); i++) {
-    for (var j = col; j < numGroups + col + 1; j++) {
 
-      if(j > numGroups + 1){
+  if(lastIndex != 0){
 
-        i++;
-      }
-      outputSheet.getRange(i + startRow, j + 1).setValue(presentMembers[i * (numGroups + col + 1) + j - col]);
-      console.log(i + startRow, j, presentMembers[i * (numGroups + col +  1) + j - col]);
-      lastIndex = j -col;
+    startRow = lastRow;
+    row--;
+  }
+
+  var row = 0, line = lastIndex;
+  for(var index = 0; index < presentMembers.length ; index++){
+
+    var value = presentMembers[index];
+    outputSheet.getRange(row + startRow, line + 1).setValue(value);
+    console.log(row + startRow, line + 1, value);
+    lastIndex = ++line;
+
+    if(line > numGroups - 1){
+
+      row++;
+      line = 0;
     }
   }
 
+  console.log(lastIndex)
   return lastIndex % numGroups;
 }
