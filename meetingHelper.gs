@@ -3,7 +3,7 @@ function getUserName(userId) {
   const url = "https://api.line.me/v2/bot/profile/" + userId;
   const response = UrlFetchApp.fetch(url, {
     "headers" : {
-      "Authorization" : "Bearer " + "g1uBnwKvSelVhIrXVW3fMmK2b8h75ZVQRheZkf2gVuFP/TxBmFjpnXde4ijmhTgPSeWk7mFrQlZzAMpilUJVCPQhN4qMTZMxoTfbeGBLYsWCoDerMTLO49tikkwGmkgdUJehVJPXmzL1I+kseaI+tQdB04t89/1O/w1cDnyilFU="
+      "Authorization" : "Bearer " + "LINE_CHANNEL_ACCESS_TOKEN"
       }
     });
 
@@ -493,7 +493,7 @@ function doPost(e){
 }
 
 function reply(contents){
-  let channelAccessToken = "g1uBnwKvSelVhIrXVW3fMmK2b8h75ZVQRheZkf2gVuFP/TxBmFjpnXde4ijmhTgPSeWk7mFrQlZzAMpilUJVCPQhN4qMTZMxoTfbeGBLYsWCoDerMTLO49tikkwGmkgdUJehVJPXmzL1I+kseaI+tQdB04t89/1O/w1cDnyilFU=";
+  let channelAccessToken = "LINE_ACHANNEL_ACCESS_TOKEN";
   let replyUrl = "https://api.line.me/v2/bot/message/reply"; // LINE にデータを送り返すときに使う URL
   let options = {
     method: 'post',
